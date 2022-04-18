@@ -62,8 +62,7 @@
       - Remove val from the class parameters, even if it doesn't hurt
       - Remove new in Time.fromMinutes, even if it doesn't hurt
     - Try out the various case class features in the worksheet
-
-### Testing
+    
 ### Collections and Functional Programming Basics
 1. Use a Sequence
    - Create the Station case class
@@ -75,9 +74,67 @@
      - Add a "TODO" comment: Verify that schedule is strictly increasing in time
    - Add a stations field to com.pulse0930.scalatrain.Train
      - Use an immutable Seq of Station for the type
-     - Inititalize it with all Stations contained in schedule
+     - Initialize it with all Stations contained in schedule
+3. Use flatMap
+   - Create the JourneyPlanner class
+     - Add a trains class parameter of type Set of Train
+   - Add a stations field to JourneyPlanner
+     - Initialize it with all Stations of all Trains
+     - Which type makes sense?
+4. Use filter
+   - Add a station parameter of type Station
+   - Return all Trains that contain the given station in their stations field
+   - Which return type makes sense
 ### For Loops and For Expressions
+1. Use for-expressions
+   - Add a stopsAt method to JourneyPlanner
+     - Add a station parameter of type Station
+     - Return a Set of Tuple2 of Time and Train
+     - Return the stops of all trains at the given station
+     - Hint : For the implementation use a for-expression with two generators and one filter
 ### Inheritance and Traits
+1. Override toString
+  - As Time is a case class, toString already looks quite good
+  - But we can do between and return something like 09:30
+  - Override toString with lazy val
+    - Use the format %02d for hours and minutes
+  - %02d means format the integer with 2 digits, left padding it with zeroes
+2. Define an ADT 
+  - Create a sealed abstract TrainInfo class
+    - Add an abstract number method returning an Int
+  - Create the case class InterCityExpress, RegionalExpress and BavarianRegional extending TrainInfo
+    - Add a hasWifi class parameter of type Boolean with default false  to InterCityExpress
+  - Replace Train.kind and Train.number with an info class parameter of type TrainInfo
+3. Use a Trait
+   - Mix the Ordered trait into Time
+     - Ordered is part of the standard library; look it up in the API docs
+     - Ordered defines concrete operators like <,<=
+     - Ordered also declares an abstract method which you have to define
+
 ### Pattern Matching
+1. Use Match Expressions
+   - Definition: A Trip between two stations is a short trip, if
+     - there exists a connection with a single train and 
+     - there is at most one station between the given two
+   - Add an isShortTrip method to JourneyPlanner
+     - Add from and to parameters of type Station
+     - Return true if there exists a Train in trains where stations contain from and to with at most one other Station in between
+     - Hint: Use the collection methods exists and dropWhile and a match expression with the sequence pattern
+   
 ### Dealing with Optional Values
+1. Use Option
+   - Add a timeAt method to Train
+   - Return an Option of Time : Return Some Time if the train stops at the station, else return None
+   - Change stopsAt in JourneyPlanner in a way that it uses a New method
 ### Handling Failure
+1. Use Try
+   - Add a toJson method to Time
+     - Return JsValue representing this Time
+   - Add a fromJson method to the Time Companion object
+     - Add a parameter of Type JsValue
+     - Wrap the conversion of the JsValue with Try(s)
+     - If parsing the hours fails, the attempt to parse the Object should be considered a failure
+     - If parsing the hours fails, use 0 as the default value for minutes
+     - Return an Option of Time: If it was Success, wrap the Time in Some, in case of Failure return None
+     
+### Testing
