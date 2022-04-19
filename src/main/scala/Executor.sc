@@ -148,6 +148,7 @@ lazySeven
 val n = 20
 s"Value = $n"
 f"Hex value = $n%02x"
+//x refers to "integer in hexadecimal format"
 //String starting with s embeds expressions using $id or ${expr}
 //String starting with f formats the results of the expressions
 

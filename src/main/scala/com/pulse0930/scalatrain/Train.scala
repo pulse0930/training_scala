@@ -9,7 +9,6 @@ case class Train (info: TrainInfo, schedule : Seq[(Time,Station)]) {
     schedule.find(stop => stop._2 == station).map(found => found._1)
 }
 
-
 case class Station(name : String)
 
 abstract class TrainInfo{

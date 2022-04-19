@@ -1,4 +1,4 @@
-##Scala Training Exercises
+## Scala Training Exercises
 ### Object Oriented Basics
 1. Define a Class
    - Use the src/main/scala source folder of your new project
